@@ -13,7 +13,7 @@ const AGGREGATOR_ABI = [
 const SEPOLIA_RPC = 'https://rpc.sepolia.org';
 
 const ROASTS = [
-    "shouldve used 1x leverage bro... oh wait that doesnt exist",
+    "shouldve used 1x leverage clairo... oh wait that doesnt exist",
     "the market said no",
     "you thought you were different huh",
     "another one bites the dust",
@@ -76,7 +76,7 @@ document.querySelectorAll('.btn-lev').forEach(btn => {
 // connect wallet
 connectBtn.addEventListener('click', async () => {
     if (!window.ethereum) {
-        alert('install metamask first bro');
+        alert('install metamask first clairo');
         return;
     }
 
