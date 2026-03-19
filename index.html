@@ -9,109 +9,128 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="particles"></canvas>
+
     <div class="container">
         <div class="header">
-            <h1>ALL IN CHAINLINK</h1>
+            <h1>ALL IN <span class="chainlink">CHAINLINK</span></h1>
             <p class="subtitle">pick your leverage. pray you survive.</p>
-            <div class="wallet-section">
-                <button id="connectBtn" class="btn btn-connect">connect wallet</button>
-                <span id="walletAddr" class="wallet-addr"></span>
+        </div>
+
+        <!-- wallet section -->
+        <div class="wallet-box">
+            <button id="connectBtn" class="btn btn-connect">connect wallet</button>
+            <span id="walletAddr" class="wallet-addr"></span>
+            <p class="wallet-note">dont worry im not gonna steal ur $10 eth gng</p>
+        </div>
+
+        <!-- live prices -->
+        <div class="prices-grid">
+            <div class="price-tile" data-coin="ETH">
+                <div class="price-tile-header">
+                    <span class="tile-coin">ETH/USD</span>
+                    <span class="tile-status" id="ethStatus">fetching...</span>
+                </div>
+                <span class="tile-price" id="ethPrice">--</span>
+            </div>
+            <div class="price-tile" data-coin="BTC">
+                <div class="price-tile-header">
+                    <span class="tile-coin">BTC/USD</span>
+                    <span class="tile-status" id="btcStatus">fetching...</span>
+                </div>
+                <span class="tile-price" id="btcPrice">--</span>
+            </div>
+            <div class="price-tile link-tile" data-coin="LINK">
+                <div class="price-tile-header">
+                    <span class="tile-coin">LINK/USD</span>
+                    <span class="tile-status" id="linkStatus">fetching...</span>
+                </div>
+                <span class="tile-price" id="linkPrice">--</span>
+                <span class="link-pain">i bought this at $30. look at it now. pain.</span>
             </div>
         </div>
 
-        <div id="gameSection" class="game-section hidden">
-            <div class="price-display">
-                <div class="price-card">
-                    <span class="coin-label" id="coinLabel">ETH/USD</span>
-                    <span class="coin-price" id="coinPrice">--</span>
-                    <span class="price-source">powered by chainlink (i bought LINK at $30 worst decision of my life)</span>
-                </div>
-            </div>
+        <div class="powered-by">prices powered by chainlink oracles on sepolia (i bought LINK at $30 worst decision of my life)</div>
 
-            <div class="controls">
-                <div class="coin-select">
-                    <label>pick your coin</label>
-                    <div class="coin-buttons">
-                        <button class="btn btn-coin active" data-coin="ETH">ETH</button>
-                        <button class="btn btn-coin" data-coin="BTC">BTC</button>
-                        <button class="btn btn-coin" data-coin="LINK">LINK</button>
+        <!-- game controls -->
+        <div class="game-box">
+            <div class="control-row">
+                <div class="control-group">
+                    <label>your coin</label>
+                    <div class="btn-group">
+                        <button class="btn btn-select active" data-coin="ETH">ETH</button>
+                        <button class="btn btn-select" data-coin="BTC">BTC</button>
+                        <button class="btn btn-select" data-coin="LINK">LINK</button>
                     </div>
                 </div>
-
-                <div class="leverage-select">
-                    <label>pick your leverage</label>
-                    <div class="leverage-buttons">
-                        <button class="btn btn-lev" data-lev="2">2x</button>
-                        <button class="btn btn-lev" data-lev="5">5x</button>
-                        <button class="btn btn-lev active" data-lev="10">10x</button>
-                        <button class="btn btn-lev" data-lev="25">25x</button>
-                        <button class="btn btn-lev" data-lev="50">50x</button>
-                        <button class="btn btn-lev" data-lev="100">100x</button>
-                    </div>
-                </div>
-
-                <div class="entry-section">
-                    <label>entry fee</label>
-                    <div class="entry-input">
-                        <input type="number" id="entryAmount" value="0.01" min="0.001" step="0.001">
-                        <span>ETH</span>
-                    </div>
-                </div>
-
-                <div class="direction-section">
-                    <label>your call</label>
-                    <div class="direction-buttons">
-                        <button class="btn btn-long" id="btnLong">LONG 📈</button>
-                        <button class="btn btn-short" id="btnShort">SHORT 📉</button>
+                <div class="control-group">
+                    <label>leverage</label>
+                    <div class="btn-group">
+                        <button class="btn btn-select" data-lev="2">2x</button>
+                        <button class="btn btn-select" data-lev="5">5x</button>
+                        <button class="btn btn-select active" data-lev="10">10x</button>
+                        <button class="btn btn-select" data-lev="25">25x</button>
+                        <button class="btn btn-select" data-lev="50">50x</button>
+                        <button class="btn btn-select" data-lev="100">100x</button>
                     </div>
                 </div>
             </div>
 
-            <div id="simulation" class="simulation hidden">
-                <div class="sim-header">
-                    <span id="simCoin">ETH/USD</span>
-                    <span id="simLev">10x</span>
-                    <span id="simDir">LONG</span>
+            <div class="control-row">
+                <div class="control-group">
+                    <label>entry (sepolia eth)</label>
+                    <input type="number" id="entryAmount" class="input-entry" value="0.01" min="0.001" step="0.001">
                 </div>
-                <div class="pnl-display">
-                    <span class="pnl-label">unrealized pnl</span>
-                    <span class="pnl-value" id="pnlValue">$0.00</span>
-                </div>
-                <div class="price-bar">
-                    <div class="liq-price-marker" id="liqMarker">
-                        <span>LIQ</span>
-                    </div>
-                    <div class="current-price-marker" id="priceMarker">
-                        <span>▼</span>
-                    </div>
-                    <div class="bar-fill" id="barFill"></div>
-                </div>
-                <div class="sim-prices">
-                    <span id="simEntry">entry: --</span>
-                    <span id="simCurrent">current: --</span>
-                    <span id="simLiq">liq: --</span>
+                <div class="control-group pot-group">
+                    <label>pot</label>
+                    <div class="pot-val" id="potValue">0.000 ETH</div>
+                    <div class="pot-sub">winner takes all (no one ever wins tho)</div>
                 </div>
             </div>
 
-            <div id="result" class="result hidden">
-                <div class="result-content">
-                    <div class="liq-text">LIQUIDATED</div>
-                    <div class="liq-amount" id="liqAmount">-0.01 ETH</div>
-                    <div class="liq-roast" id="liqRoast"></div>
-                    <div class="miss-piss">I MISS PISS</div>
-                    <button class="btn btn-again" id="btnAgain">try again (you wont win)</button>
+            <div class="direction-row">
+                <button class="btn btn-long" id="btnLong">LONG 📈</button>
+                <button class="btn btn-short" id="btnShort">SHORT 📉</button>
+            </div>
+        </div>
+
+        <!-- simulation -->
+        <div id="simulation" class="sim-box hidden">
+            <div class="sim-top">
+                <span id="simCoin">ETH/USD</span>
+                <span id="simLev" class="sim-lev">10x</span>
+                <span id="simDir" class="sim-dir">LONG</span>
+            </div>
+            <div class="sim-pnl">
+                <div class="pnl-label">unrealized pnl</div>
+                <div class="pnl-value" id="pnlValue">$0.00</div>
+                <div class="pnl-percent" id="pnlPercent">0.00%</div>
+            </div>
+            <div class="sim-bar-container">
+                <div class="sim-bar">
+                    <div class="sim-bar-fill" id="barFill"></div>
+                    <div class="sim-bar-liq">LIQ</div>
+                    <div class="sim-bar-marker" id="priceMarker">▼</div>
                 </div>
             </div>
-
-            <div class="pot-display">
-                <span class="pot-label">current pot</span>
-                <span class="pot-value" id="potValue">0.00 ETH</span>
-                <span class="pot-note">winner takes all (no one ever wins tho)</span>
+            <div class="sim-info">
+                <span id="simEntry">entry: --</span>
+                <span id="simCurrent">current: --</span>
+                <span id="simLiq">liq: --</span>
             </div>
+        </div>
+
+        <!-- result -->
+        <div id="result" class="result-box hidden">
+            <div class="result-liq">LIQUIDATED</div>
+            <div class="result-amount" id="liqAmount">-0.01 ETH</div>
+            <div class="result-roast" id="liqRoast"></div>
+            <div class="result-piss">I MISS PISS</div>
+            <button class="btn btn-again" id="btnAgain">try again (you wont win)</button>
         </div>
 
         <div class="footer">
-            <p>built by <a href="https://github.com/Overdusts" target="_blank">overdusts</a> · uses chainlink price feeds on sepolia · game is 100% fair trust me bro</p>
+            built by <a href="https://github.com/Overdusts" target="_blank">overdusts</a> · chainlink price feeds on sepolia · game is 100% fair trust me
         </div>
     </div>
 
