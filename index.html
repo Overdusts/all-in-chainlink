@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquidation Roulette</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LIQUIDATION ROULETTE</h1>
+            <p class="subtitle">pick your leverage. pray you survive.</p>
+            <div class="wallet-section">
+                <button id="connectBtn" class="btn btn-connect">connect wallet</button>
+                <span id="walletAddr" class="wallet-addr"></span>
+            </div>
+        </div>
+
+        <div id="gameSection" class="game-section hidden">
+            <div class="price-display">
+                <div class="price-card">
+                    <span class="coin-label" id="coinLabel">ETH/USD</span>
+                    <span class="coin-price" id="coinPrice">--</span>
+                    <span class="price-source">powered by chainlink (i bought LINK at $30 worst decision of my life)</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="coin-select">
+                    <label>pick your coin</label>
+                    <div class="coin-buttons">
+                        <button class="btn btn-coin active" data-coin="ETH">ETH</button>
+                        <button class="btn btn-coin" data-coin="BTC">BTC</button>
+                        <button class="btn btn-coin" data-coin="LINK">LINK</button>
+                    </div>
+                </div>
+
+                <div class="leverage-select">
+                    <label>pick your leverage</label>
+                    <div class="leverage-buttons">
+                        <button class="btn btn-lev" data-lev="2">2x</button>
+                        <button class="btn btn-lev" data-lev="5">5x</button>
+                        <button class="btn btn-lev active" data-lev="10">10x</button>
+                        <button class="btn btn-lev" data-lev="25">25x</button>
+                        <button class="btn btn-lev" data-lev="50">50x</button>
+                        <button class="btn btn-lev" data-lev="100">100x</button>
+                    </div>
+                </div>
+
+                <div class="entry-section">
+                    <label>entry fee</label>
+                    <div class="entry-input">
+                        <input type="number" id="entryAmount" value="0.01" min="0.001" step="0.001">
+                        <span>ETH</span>
+                    </div>
+                </div>
+
+                <div class="direction-section">
+                    <label>your call</label>
+                    <div class="direction-buttons">
+                        <button class="btn btn-long" id="btnLong">LONG 📈</button>
+                        <button class="btn btn-short" id="btnShort">SHORT 📉</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="simulation" class="simulation hidden">
+                <div class="sim-header">
+                    <span id="simCoin">ETH/USD</span>
+                    <span id="simLev">10x</span>
+                    <span id="simDir">LONG</span>
+                </div>
+                <div class="pnl-display">
+                    <span class="pnl-label">unrealized pnl</span>
+                    <span class="pnl-value" id="pnlValue">$0.00</span>
+                </div>
+                <div class="price-bar">
+                    <div class="liq-price-marker" id="liqMarker">
+                        <span>LIQ</span>
+                    </div>
+                    <div class="current-price-marker" id="priceMarker">
+                        <span>▼</span>
+                    </div>
+                    <div class="bar-fill" id="barFill"></div>
+                </div>
+                <div class="sim-prices">
+                    <span id="simEntry">entry: --</span>
+                    <span id="simCurrent">current: --</span>
+                    <span id="simLiq">liq: --</span>
+                </div>
+            </div>
+
+            <div id="result" class="result hidden">
+                <div class="result-content">
+                    <div class="liq-text">LIQUIDATED</div>
+                    <div class="liq-amount" id="liqAmount">-0.01 ETH</div>
+                    <div class="liq-roast" id="liqRoast"></div>
+                    <div class="miss-piss">I MISS PISS</div>
+                    <button class="btn btn-again" id="btnAgain">try again (you wont win)</button>
+                </div>
+            </div>
+
+            <div class="pot-display">
+                <span class="pot-label">current pot</span>
+                <span class="pot-value" id="potValue">0.00 ETH</span>
+                <span class="pot-note">winner takes all (no one ever wins tho)</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>built by <a href="https://github.com/Overdusts" target="_blank">overdusts</a> · uses chainlink price feeds on sepolia · game is 100% fair trust me bro</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

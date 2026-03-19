@@ -1,0 +1,438 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0a0a0f;
+    color: #e0e0e0;
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff4444, #ff6b35, #ff4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 0.85rem;
+}
+
+.wallet-section {
+    margin-top: 20px;
+}
+
+.wallet-addr {
+    color: #A960FF;
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 8px;
+}
+
+/* buttons */
+.btn {
+    background: none;
+    border: 1px solid #222;
+    color: #999;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.8rem;
+}
+
+.btn:hover {
+    border-color: #A960FF;
+    color: #fff;
+}
+
+.btn-connect {
+    border-color: #A960FF;
+    color: #A960FF;
+}
+
+.btn-connect:hover {
+    background: #A960FF;
+    color: #000;
+}
+
+.btn-coin, .btn-lev {
+    padding: 8px 16px;
+    min-width: 50px;
+}
+
+.btn-coin.active, .btn-lev.active {
+    background: #A960FF;
+    border-color: #A960FF;
+    color: #000;
+}
+
+.btn-long {
+    border-color: #00c853;
+    color: #00c853;
+    flex: 1;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.btn-long:hover {
+    background: #00c853;
+    color: #000;
+}
+
+.btn-short {
+    border-color: #ff4444;
+    color: #ff4444;
+    flex: 1;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.btn-short:hover {
+    background: #ff4444;
+    color: #000;
+}
+
+.btn-again {
+    border-color: #A960FF;
+    color: #A960FF;
+    margin-top: 20px;
+    padding: 12px 24px;
+}
+
+.btn-again:hover {
+    background: #A960FF;
+    color: #000;
+}
+
+/* game section */
+.game-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* price display */
+.price-display {
+    text-align: center;
+}
+
+.price-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 24px;
+    border: 1px solid #1a1a2e;
+    background: #0d0d15;
+}
+
+.coin-label {
+    color: #A960FF;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+.coin-price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.price-source {
+    color: #333;
+    font-size: 0.6rem;
+    margin-top: 4px;
+}
+
+/* controls */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.controls label {
+    color: #555;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.coin-buttons, .leverage-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.entry-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.entry-input input {
+    background: #0d0d15;
+    border: 1px solid #222;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    width: 140px;
+}
+
+.entry-input input:focus {
+    outline: none;
+    border-color: #A960FF;
+}
+
+.entry-input span {
+    color: #555;
+    font-size: 0.8rem;
+}
+
+.direction-section {
+    margin-top: 10px;
+}
+
+.direction-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+/* simulation */
+.simulation {
+    padding: 24px;
+    border: 1px solid #1a1a2e;
+    background: #0d0d15;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sim-header {
+    display: flex;
+    justify-content: space-between;
+    color: #555;
+    font-size: 0.75rem;
+}
+
+.pnl-display {
+    text-align: center;
+}
+
+.pnl-label {
+    color: #555;
+    font-size: 0.7rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.pnl-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #00c853;
+    transition: color 0.3s;
+}
+
+.pnl-value.negative {
+    color: #ff4444;
+}
+
+.price-bar {
+    height: 6px;
+    background: #1a1a2e;
+    border-radius: 3px;
+    position: relative;
+    margin: 20px 0;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #00c853;
+    border-radius: 3px;
+    width: 50%;
+    transition: width 0.3s, background 0.3s;
+}
+
+.bar-fill.danger {
+    background: #ff4444;
+}
+
+.liq-price-marker {
+    position: absolute;
+    top: -20px;
+    left: 5%;
+    color: #ff4444;
+    font-size: 0.6rem;
+    font-weight: 700;
+}
+
+.current-price-marker {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    color: #A960FF;
+    font-size: 0.8rem;
+    transition: left 0.3s;
+}
+
+.sim-prices {
+    display: flex;
+    justify-content: space-between;
+    color: #444;
+    font-size: 0.65rem;
+}
+
+/* result */
+.result {
+    text-align: center;
+    padding: 40px 24px;
+    border: 1px solid #ff4444;
+    background: #0d0d15;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+    20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.liq-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ff4444;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    animation: flicker 1.5s infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.liq-amount {
+    font-size: 1.2rem;
+    color: #ff6b35;
+    margin-bottom: 16px;
+}
+
+.liq-roast {
+    color: #555;
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.miss-piss {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #A960FF;
+    letter-spacing: 3px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 10px rgba(169, 96, 255, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(169, 96, 255, 0.6), 0 0 40px rgba(169, 96, 255, 0.3); }
+}
+
+/* pot */
+.pot-display {
+    text-align: center;
+    padding: 16px;
+    border: 1px solid #1a1a2e;
+    background: #0d0d15;
+}
+
+.pot-label {
+    color: #555;
+    font-size: 0.7rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.pot-value {
+    color: #A960FF;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: block;
+}
+
+.pot-note {
+    color: #333;
+    font-size: 0.6rem;
+    display: block;
+    margin-top: 4px;
+}
+
+/* footer */
+.footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid #111;
+}
+
+.footer p {
+    color: #333;
+    font-size: 0.65rem;
+}
+
+.footer a {
+    color: #A960FF;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* responsive */
+@media (max-width: 500px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    .coin-price {
+        font-size: 1.8rem;
+    }
+    .liq-text {
+        font-size: 1.8rem;
+    }
+    .miss-piss {
+        font-size: 1.2rem;
+    }
+}
